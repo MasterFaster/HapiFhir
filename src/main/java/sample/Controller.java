@@ -35,9 +35,7 @@ public class Controller implements Initializable{
 
     private FhirContext ctx;
     private IGenericClient client;
-
-    @FXML
-    private TextField nameTextField;
+    private ArrayList<Patient> patients;
     @FXML
     public ListView patientsListView;
     /**
@@ -56,55 +54,26 @@ public class Controller implements Initializable{
             public void handle(MouseEvent event) {
                 if(patientsListView.getSelectionModel().getSelectedItem() != null) {
                     System.out.println(patientsListView.getSelectionModel().getSelectedIndex());
+                    FXMLLoader fxmlLoader = new FXMLLoader(getClass().getClassLoader().getResource("patientDetails.fxml"));
+//                    fxmlLoader.setController(patientDetailsController);
+                    try{
+                        Parent root = (Parent)fxmlLoader.load();
+                        PatientDetailsController patientDetailsController = fxmlLoader.getController();
+                        patientDetailsController.setPatient(patients.get(patientsListView.getSelectionModel().getSelectedIndex()));
+                        patientDetailsController.setClient(client);
+                        Stage stage = new Stage();
+                        stage.setTitle("Patient Details");
+                        stage.initModality(Modality.APPLICATION_MODAL);
+                        stage.initStyle(StageStyle.DECORATED);
+                        stage.setResizable(false);
+                        stage.setScene(new Scene(root, 450, 90));
+                        stage.showAndWait();
+                    }catch(Exception ex){
+                        System.out.println(ex);
+                    }
                 }
             }
         });
-    }
-
-    @FXML
-    public void getPatient(){
-        String name = nameTextField.getText();
-        Bundle bundle = client.search().forResource(Patient.class)
-                .where(new StringClientParam("name").matches().value(name))
-                .returnBundle(Bundle.class).execute();
-        ArrayList<Patient> patients = new ArrayList<Patient>();
-        while(true) {
-            List<Bundle.BundleEntryComponent> entries = bundle.getEntry();
-            for (Bundle.BundleEntryComponent entry : entries) {
-                if (entry.getResource() instanceof Patient) {
-                    Patient patient = (Patient) entry.getResource();
-                    System.out.println(patient.getName().get(0).getFamily());
-                    patients.add(patient);
-                }
-            }
-            if (bundle.getLink(Bundle.LINK_NEXT) != null) {
-                bundle = client.loadPage().next(bundle).execute();
-            } else {
-                break;
-            }
-        }
-        if (patients.size()==1){
-            System.out.println("\nObservations:");
-            String identifier = patients.get(0).getId().split("/")[5];
-            System.out.println(identifier);
-            bundle = client.search().forResource(Observation.class)
-                    .where(new ReferenceClientParam("patient").hasId(identifier)).returnBundle(Bundle.class)
-                    .execute();
-            while(true) {
-                List<Bundle.BundleEntryComponent> entries = bundle.getEntry();
-                for (Bundle.BundleEntryComponent entry : entries) {
-                    if (entry.getResource() instanceof Observation) {
-                        Observation observation = (Observation) entry.getResource();
-                        System.out.println(observation.getCode().getText());
-                    }
-                }
-                if (bundle.getLink(Bundle.LINK_NEXT) != null) {
-                    bundle = client.loadPage().next(bundle).execute();
-                } else {
-                    break;
-                }
-            }
-        }
     }
 
     /**
@@ -120,7 +89,7 @@ public class Controller implements Initializable{
                     .returnBundle(Bundle.class)
                     .execute();
         }
-        ArrayList<Patient> patients = new ArrayList<Patient>();
+        patients = new ArrayList<Patient>();
         ObservableList<String> patientsIntroductions = FXCollections.observableArrayList();
         while(true) {
             List<Bundle.BundleEntryComponent> entries = bundle.getEntry();
@@ -151,62 +120,6 @@ public class Controller implements Initializable{
         }
 
         patientsListView.setItems(patientsIntroductions);
-    }
-
-
-    public List<MedicationRequest> getMedicationRequests(String patientID){
-        Bundle bundle = client.search().forResource(MedicationRequest.class)
-                .where(new ReferenceClientParam("subject").hasId(patientID)).returnBundle(Bundle.class)
-                .execute();
-        ArrayList<MedicationRequest> medicationRequests = new ArrayList<>();
-        while(true) {
-            List<Bundle.BundleEntryComponent> entries = bundle.getEntry();
-            for (Bundle.BundleEntryComponent entry : entries) {
-                if (entry.getResource() instanceof MedicationRequest) {
-                    MedicationRequest medicationRequest = (MedicationRequest) entry.getResource();
-
-
-                    //Println
-                    try {
-                        System.out.println(medicationRequest.getMedicationCodeableConcept().getText());
-                    } catch (FHIRException e){
-                        e.printStackTrace();
-                    }
-
-
-                    medicationRequests.add(medicationRequest);
-                }
-            }
-            if (bundle.getLink(Bundle.LINK_NEXT) != null) {
-                bundle = client.loadPage().next(bundle).execute();
-            } else {
-                break;
-            }
-        }
-        return medicationRequests;
-    }
-
-    public List<Observation> getObservations(String patientID){
-        ArrayList<Observation> observations = new ArrayList<>();
-        Bundle bundle = client.search().forResource(Observation.class)
-                .where(new ReferenceClientParam("patient").hasId(patientID)).returnBundle(Bundle.class)
-                .execute();
-        while(true) {
-            List<Bundle.BundleEntryComponent> entries = bundle.getEntry();
-            for (Bundle.BundleEntryComponent entry : entries) {
-                if (entry.getResource() instanceof Observation) {
-                    Observation observation = (Observation) entry.getResource();
-                    System.out.println(observation.getCode().getText());
-                    observations.add(observation);
-                }
-            }
-            if (bundle.getLink(Bundle.LINK_NEXT) != null) {
-                bundle = client.loadPage().next(bundle).execute();
-            } else {
-                break;
-            }
-        }
-        return observations;
     }
 
 }

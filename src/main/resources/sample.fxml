@@ -17,11 +17,6 @@
          </children>
       </HBox>
       <ListView fx:id="patientsListView" prefHeight="310.0" prefWidth="600.0" />
-      <HBox prefHeight="100.0" prefWidth="200.0">
-         <children>
-            <TextField fx:id="nameTextField" />
-            <Button fx:id="button" mnemonicParsing="false" onAction="#getPatient" text="Get Patient" />
-         </children>
-      </HBox>
+      <HBox prefHeight="100.0" prefWidth="200.0" />
    </children>
 </VBox>
