@@ -55,12 +55,12 @@ public class Controller implements Initializable{
                 if(patientsListView.getSelectionModel().getSelectedItem() != null) {
                     System.out.println(patientsListView.getSelectionModel().getSelectedIndex());
                     FXMLLoader fxmlLoader = new FXMLLoader(getClass().getClassLoader().getResource("patientDetails.fxml"));
-//                    fxmlLoader.setController(patientDetailsController);
+                    PatientDetailsController patientDetailsController = new PatientDetailsController();
+                    patientDetailsController.setPatient(patients.get(patientsListView.getSelectionModel().getSelectedIndex()));
+                    patientDetailsController.setClient(client);
+                    fxmlLoader.setController(patientDetailsController);
                     try{
                         Parent root = (Parent)fxmlLoader.load();
-                        PatientDetailsController patientDetailsController = fxmlLoader.getController();
-                        patientDetailsController.setPatient(patients.get(patientsListView.getSelectionModel().getSelectedIndex()));
-                        patientDetailsController.setClient(client);
                         Stage stage = new Stage();
                         stage.setTitle("Patient Details");
                         stage.initModality(Modality.APPLICATION_MODAL);
