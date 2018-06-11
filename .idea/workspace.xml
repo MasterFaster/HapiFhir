@@ -2,11 +2,6 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="cdb932d9-7e58-4d94-93a9-e7b232ef17da" name="Default" comment="">
-      <change type="DELETED" beforePath="$PROJECT_DIR$/target/classes/sample/PatientDetailsController$1.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/target/classes/sample/PatientDetailsController$2.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/target/classes/sample/PatientDetailsController$3.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/target/classes/sample/PatientDetailsController$4.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/target/classes/sample/PatientDetailsController.class" afterPath="" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/sample/PatientDetailsController.java" afterPath="$PROJECT_DIR$/src/main/java/sample/PatientDetailsController.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/resources/patientDetails.fxml" afterPath="$PROJECT_DIR$/src/main/resources/patientDetails.fxml" />
@@ -72,11 +67,10 @@
       <file leaf-file-name="Main.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/sample/Main.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="162">
+            <state relative-caret-position="270">
               <caret line="15" column="38" lean-forward="false" selection-start-line="15" selection-start-column="38" selection-end-line="15" selection-end-column="38" />
               <folding>
-                <element signature="e#621#622#0" expanded="false" />
-                <element signature="e#649#650#0" expanded="false" />
+                <element signature="imports" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -84,10 +78,10 @@
       </file>
       <file leaf-file-name="sample.fxml" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/resources/sample.fxml">
-          <provider selected="true" editor-type-id="JavaFX-Scene-Builder">
+          <provider editor-type-id="JavaFX-Scene-Builder">
             <state />
           </provider>
-          <provider editor-type-id="text-editor">
+          <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="396">
               <caret line="22" column="0" lean-forward="false" selection-start-line="22" selection-start-column="0" selection-end-line="22" selection-end-column="0" />
               <folding />
@@ -98,23 +92,26 @@
       <file leaf-file-name="Controller.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/sample/Controller.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="666">
+            <state relative-caret-position="1224">
               <caret line="68" column="63" lean-forward="false" selection-start-line="68" selection-start-column="63" selection-end-line="68" selection-end-column="63" />
               <folding>
-                <element signature="e#1710#3141#0" expanded="false" />
-                <element signature="e#3140#3141#0" expanded="false" />
+                <element signature="imports" expanded="true" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="PatientDetailsController.java" pinned="false" current-in-tab="true">
+      <file leaf-file-name="PatientDetailsController.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/sample/PatientDetailsController.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="269">
-              <caret line="43" column="71" lean-forward="false" selection-start-line="43" selection-start-column="71" selection-end-line="43" selection-end-column="71" />
+            <state relative-caret-position="469">
+              <caret line="42" column="0" lean-forward="false" selection-start-line="42" selection-start-column="0" selection-end-line="42" selection-end-column="0" />
               <folding>
                 <element signature="imports" expanded="true" />
+                <element signature="e#3235#3236#0" expanded="true" />
+                <element signature="e#3291#3292#0" expanded="true" />
+                <element signature="e#4991#4992#0" expanded="true" />
+                <element signature="e#5044#5045#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -123,7 +120,7 @@
       <file leaf-file-name="ObservationMedicamentController.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/sample/ObservationMedicamentController.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="18">
+            <state relative-caret-position="-2303">
               <caret line="27" column="13" lean-forward="false" selection-start-line="27" selection-start-column="13" selection-end-line="27" selection-end-column="13" />
               <folding />
             </state>
@@ -136,8 +133,34 @@
             <state />
           </provider>
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="126">
-              <caret line="7" column="206" lean-forward="false" selection-start-line="7" selection-start-column="206" selection-end-line="7" selection-end-column="206" />
+            <state relative-caret-position="144">
+              <caret line="8" column="0" lean-forward="false" selection-start-line="8" selection-start-column="0" selection-end-line="8" selection-end-column="38" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="patientDetails.fxml" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/target/classes/patientDetails.fxml">
+          <provider editor-type-id="JavaFX-Scene-Builder">
+            <state />
+          </provider>
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="162">
+              <caret line="9" column="196" lean-forward="true" selection-start-line="9" selection-start-column="196" selection-end-line="9" selection-end-column="196" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="observationMedicament.fxml" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/main/resources/observationMedicament.fxml">
+          <provider editor-type-id="JavaFX-Scene-Builder">
+            <state />
+          </provider>
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="0">
+              <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
               <folding />
             </state>
           </provider>
@@ -171,9 +194,9 @@
         <option value="$PROJECT_DIR$/pom.xml" />
         <option value="$PROJECT_DIR$/src/main/java/sample/Main.java" />
         <option value="$PROJECT_DIR$/src/main/resources/sample.fxml" />
-        <option value="$PROJECT_DIR$/src/main/resources/patientDetails.fxml" />
         <option value="$PROJECT_DIR$/src/main/java/sample/Controller.java" />
         <option value="$PROJECT_DIR$/src/main/java/sample/PatientDetailsController.java" />
+        <option value="$PROJECT_DIR$/src/main/resources/patientDetails.fxml" />
       </list>
     </option>
   </component>
@@ -837,12 +860,12 @@
       <workItem from="1528643616325" duration="2624000" />
       <workItem from="1528653058453" duration="4872000" />
       <workItem from="1528660855212" duration="15749000" />
-      <workItem from="1528706970628" duration="1678000" />
+      <workItem from="1528706970628" duration="2447000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="28756000" />
+    <option name="totallyTimeSpent" value="29525000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -915,8 +938,7 @@
         <state relative-caret-position="162">
           <caret line="15" column="38" lean-forward="false" selection-start-line="15" selection-start-column="38" selection-end-line="15" selection-end-column="38" />
           <folding>
-            <element signature="e#621#622#0" expanded="false" />
-            <element signature="e#649#650#0" expanded="false" />
+            <element signature="imports" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -937,8 +959,7 @@
         <state relative-caret-position="1224">
           <caret line="68" column="63" lean-forward="false" selection-start-line="68" selection-start-column="63" selection-end-line="68" selection-end-column="63" />
           <folding>
-            <element signature="e#1710#3141#0" expanded="false" />
-            <element signature="e#3140#3141#0" expanded="false" />
+            <element signature="imports" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -949,6 +970,10 @@
           <caret line="100" column="41" lean-forward="true" selection-start-line="100" selection-start-column="41" selection-end-line="100" selection-end-column="41" />
           <folding>
             <element signature="imports" expanded="true" />
+            <element signature="e#3235#3236#0" expanded="true" />
+            <element signature="e#3291#3292#0" expanded="true" />
+            <element signature="e#4991#4992#0" expanded="true" />
+            <element signature="e#5044#5045#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -977,8 +1002,7 @@
         <state relative-caret-position="342">
           <caret line="19" column="0" lean-forward="false" selection-start-line="19" selection-start-column="0" selection-end-line="19" selection-end-column="0" />
           <folding>
-            <element signature="e#621#622#0" expanded="false" />
-            <element signature="e#649#650#0" expanded="false" />
+            <element signature="imports" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -999,8 +1023,7 @@
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding>
-            <element signature="e#1710#3141#0" expanded="false" />
-            <element signature="e#3140#3141#0" expanded="false" />
+            <element signature="imports" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -1010,8 +1033,7 @@
         <state relative-caret-position="136">
           <caret line="14" column="0" lean-forward="false" selection-start-line="14" selection-start-column="0" selection-end-line="14" selection-end-column="0" />
           <folding>
-            <element signature="e#621#622#0" expanded="false" />
-            <element signature="e#649#650#0" expanded="false" />
+            <element signature="imports" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -1021,8 +1043,7 @@
         <state relative-caret-position="578">
           <caret line="50" column="45" lean-forward="true" selection-start-line="50" selection-start-column="45" selection-end-line="50" selection-end-column="45" />
           <folding>
-            <element signature="e#1710#3141#0" expanded="false" />
-            <element signature="e#3140#3141#0" expanded="false" />
+            <element signature="imports" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -1052,8 +1073,7 @@
         <state relative-caret-position="72">
           <caret line="8" column="0" lean-forward="false" selection-start-line="8" selection-start-column="0" selection-end-line="8" selection-end-column="0" />
           <folding>
-            <element signature="e#621#622#0" expanded="false" />
-            <element signature="e#649#650#0" expanded="false" />
+            <element signature="imports" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -1063,8 +1083,7 @@
         <state relative-caret-position="72">
           <caret line="4" column="0" lean-forward="false" selection-start-line="4" selection-start-column="0" selection-end-line="4" selection-end-column="0" />
           <folding>
-            <element signature="e#1710#3141#0" expanded="false" />
-            <element signature="e#3140#3141#0" expanded="false" />
+            <element signature="imports" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -1096,25 +1115,57 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/resources/sample.fxml">
-      <provider selected="true" editor-type-id="JavaFX-Scene-Builder">
-        <state />
+    <entry file="file://$PROJECT_DIR$/src/main/java/sample/PatientDetailsController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="469">
+          <caret line="42" column="0" lean-forward="false" selection-start-line="42" selection-start-column="0" selection-end-line="42" selection-end-column="0" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#3235#3236#0" expanded="true" />
+            <element signature="e#3291#3292#0" expanded="true" />
+            <element signature="e#4991#4992#0" expanded="true" />
+            <element signature="e#5044#5045#0" expanded="true" />
+          </folding>
+        </state>
       </provider>
-      <provider editor-type-id="text-editor">
-        <state relative-caret-position="396">
-          <caret line="22" column="0" lean-forward="false" selection-start-line="22" selection-start-column="0" selection-end-line="22" selection-end-column="0" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/sample/ObservationMedicamentController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-2303">
+          <caret line="27" column="13" lean-forward="false" selection-start-line="27" selection-start-column="13" selection-end-line="27" selection-end-column="13" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/sample/Main.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="162">
+        <state relative-caret-position="270">
           <caret line="15" column="38" lean-forward="false" selection-start-line="15" selection-start-column="38" selection-end-line="15" selection-end-column="38" />
           <folding>
-            <element signature="e#621#622#0" expanded="false" />
-            <element signature="e#649#650#0" expanded="false" />
+            <element signature="imports" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/target/classes/sample.fxml">
+      <provider selected="true" editor-type-id="JavaFX-Scene-Builder">
+        <state />
+      </provider>
+      <provider editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/resources/sample.fxml">
+      <provider editor-type-id="JavaFX-Scene-Builder">
+        <state />
+      </provider>
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="396">
+          <caret line="22" column="0" lean-forward="false" selection-start-line="22" selection-start-column="0" selection-end-line="22" selection-end-column="0" />
+          <folding />
         </state>
       </provider>
     </entry>
@@ -1123,38 +1174,41 @@
         <state />
       </provider>
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="126">
-          <caret line="7" column="206" lean-forward="false" selection-start-line="7" selection-start-column="206" selection-end-line="7" selection-end-column="206" />
+        <state relative-caret-position="144">
+          <caret line="8" column="0" lean-forward="false" selection-start-line="8" selection-start-column="0" selection-end-line="8" selection-end-column="38" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/sample/Controller.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="666">
+        <state relative-caret-position="1224">
           <caret line="68" column="63" lean-forward="false" selection-start-line="68" selection-start-column="63" selection-end-line="68" selection-end-column="63" />
           <folding>
-            <element signature="e#1710#3141#0" expanded="false" />
-            <element signature="e#3140#3141#0" expanded="false" />
+            <element signature="imports" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/sample/ObservationMedicamentController.java">
+    <entry file="file://$PROJECT_DIR$/target/classes/patientDetails.fxml">
+      <provider editor-type-id="JavaFX-Scene-Builder">
+        <state />
+      </provider>
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="18">
-          <caret line="27" column="13" lean-forward="false" selection-start-line="27" selection-start-column="13" selection-end-line="27" selection-end-column="13" />
+        <state relative-caret-position="162">
+          <caret line="9" column="196" lean-forward="true" selection-start-line="9" selection-start-column="196" selection-end-line="9" selection-end-column="196" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/sample/PatientDetailsController.java">
+    <entry file="file://$PROJECT_DIR$/src/main/resources/observationMedicament.fxml">
+      <provider editor-type-id="JavaFX-Scene-Builder">
+        <state />
+      </provider>
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="269">
-          <caret line="43" column="71" lean-forward="false" selection-start-line="43" selection-start-column="71" selection-end-line="43" selection-end-column="71" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
         </state>
       </provider>
     </entry>
