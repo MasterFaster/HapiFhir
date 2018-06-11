@@ -14,6 +14,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.ListView;
+import javafx.scene.control.Tooltip;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
@@ -46,7 +47,7 @@ public class ObservationMedicamentController implements Initializable {
     @FXML private ChoiceBox periodChoiceBox;
     private HashMap<Integer, Pair<List, Integer>>  viewToListsMapper = new HashMap<>();
     private String patientID;
-
+    private Tooltip medicationTooltip = null;
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         patientID = patient.getId().split("/")[5];
@@ -64,6 +65,12 @@ public class ObservationMedicamentController implements Initializable {
         eventsListView.setOnMouseClicked(new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent event) {
+                if(medicationTooltip != null){
+                    if(medicationTooltip.isShowing()){
+                        medicationTooltip.hide();
+                    }
+                }
+
                 if(eventsListView.getSelectionModel().getSelectedItem() != null) {
                     System.out.println(eventsListView.getSelectionModel().getSelectedIndex());
                     List key = viewToListsMapper.get(eventsListView.getSelectionModel().getSelectedIndex()).getKey();
@@ -91,7 +98,18 @@ public class ObservationMedicamentController implements Initializable {
                             ex.printStackTrace();
                         }
                     } else {
-                        System.out.println("Medicament request " + index);
+                        String s="";
+                        try{
+                            s = ((MedicationRequest)key.get(index)).getMedicationCodeableConcept().getText()+"\n"+
+                                    ((MedicationRequest)key.get(index)).getAuthoredOn().toString();
+                        } catch (FHIRException ex){
+                            ex.printStackTrace();
+                        }
+                        medicationTooltip = new Tooltip(s);
+
+                        double x = event.getSceneX() +  eventsListView.getScene().getWindow().getX()+30;
+                        double y = event.getSceneY() + eventsListView.getScene().getWindow().getY()+10;
+                        medicationTooltip.show(eventsListView, x,y);
                     }
                 }
             }
