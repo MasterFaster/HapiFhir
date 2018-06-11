@@ -10,12 +10,12 @@
    <children>
       <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
          <children>
-            <Label text="Family Name: ">
+            <Label text="Family Names: ">
                <font>
                   <Font size="18.0" />
                </font>
             </Label>
-            <Label fx:id="familyNameLabel" text="Label">
+            <Label fx:id="familyNameLabel" text="Family Names">
                <font>
                   <Font size="18.0" />
                </font>
@@ -29,15 +29,41 @@
                   <Font size="18.0" />
                </font>
             </Label>
-            <Label fx:id="nameLabel" text="Label">
+            <Label fx:id="nameLabel" text="Names">
                <font>
                   <Font size="18.0" />
                </font>
             </Label>
          </children>
       </HBox>
-      <HBox prefHeight="100.0" prefWidth="200.0" />
-      <HBox prefHeight="100.0" prefWidth="200.0" />
+      <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
+         <children>
+            <Label text="Gender:">
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </Label>
+            <Label fx:id="genderLabel" text="Gender">
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </Label>
+         </children>
+      </HBox>
+      <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
+         <children>
+            <Label text="Address:">
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </Label>
+            <Label fx:id="addressLabel" text="Address">
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </Label>
+         </children>
+      </HBox>
       <HBox prefHeight="100.0" prefWidth="200.0" />
    </children>
 </VBox>

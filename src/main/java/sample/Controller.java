@@ -66,7 +66,7 @@ public class Controller implements Initializable{
                         stage.initModality(Modality.APPLICATION_MODAL);
                         stage.initStyle(StageStyle.DECORATED);
                         stage.setResizable(false);
-                        stage.setScene(new Scene(root, 450, 90));
+                        stage.setScene(new Scene(root, 450, 450));
                         stage.showAndWait();
                     }catch(Exception ex){
                         System.out.println(ex);

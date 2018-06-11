@@ -2,12 +2,17 @@ package sample;
 
 import ca.uhn.fhir.rest.client.api.IGenericClient;
 import ca.uhn.fhir.rest.gclient.ReferenceClientParam;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.geometry.Point2D;
+import javafx.scene.Node;
 import javafx.scene.control.Label;
+import javafx.scene.control.Tooltip;
 import org.hl7.fhir.dstu3.model.*;
 import org.hl7.fhir.exceptions.FHIRException;
 
+import java.awt.event.MouseEvent;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
@@ -20,10 +25,10 @@ public class PatientDetailsController implements Initializable{
 
     private Patient patient;
     private IGenericClient client;
-    @FXML
-    private Label familyNameLabel;
-    @FXML
-    private Label nameLabel;
+    @FXML private Label familyNameLabel;
+    @FXML private Label nameLabel;
+    @FXML private Label genderLabel;
+    @FXML private Label addressLabel;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -31,7 +36,7 @@ public class PatientDetailsController implements Initializable{
         String patientNames = "";
         for(HumanName humanName : patient.getName()){
             if(!patientFamilyNames.contains(humanName.getFamily())) {
-                patientFamilyNames += humanName.getFamily() + ", ";
+                patientFamilyNames += humanName.getFamily() + "(" + humanName.getUse() + ")" + ", ";
             }
             for(StringType stringType : humanName.getGiven()){
                 if(!patientNames.contains(stringType.getValueNotNull())) {
@@ -39,10 +44,42 @@ public class PatientDetailsController implements Initializable{
                 }
             }
         }
-        patientFamilyNames.substring(0, patientFamilyNames.length()-2);
+        patientFamilyNames = patientFamilyNames.substring(0, patientFamilyNames.length()-2);
         familyNameLabel.setText(patientFamilyNames);
-        patientNames.substring(0, patientNames.length()-2);
+        patientNames = patientNames.substring(0, patientNames.length()-2);
         nameLabel.setText(patientNames);
+        genderLabel.setText(patient.getGender().getDefinition());
+        Tooltip addressTooltip = new Tooltip("");
+//        addressTooltip.setX(addressLabel.getLayoutY());
+//        addressTooltip.setY(addressLabel.getLayoutX());
+        StringBuilder addresses = new StringBuilder();
+        for(Address address : patient.getAddress()){
+            StringBuilder addressAsString = new StringBuilder();
+            for(StringType line : address.getLine()){
+                addressAsString.append(line.getValueNotNull() + ", ");
+            }
+            addressAsString.append(address.getPostalCode() + ", ");
+            addressAsString.append(address.getCity() + ", ");
+            addressAsString.append(address.getCountry());
+            addresses.append(addressAsString + "\n");
+        }
+        addressTooltip.setText(addresses.toString());
+//        addressLabel.setTooltip(addressTooltip);
+        Point2D p = addressLabel.localToScene(0.0,0.0);
+        addressLabel.setOnMouseEntered(new EventHandler<javafx.scene.input.MouseEvent>() {
+            @Override
+            public void handle(javafx.scene.input.MouseEvent event) {
+                addressTooltip.show(addressLabel, p.getX() + addressLabel.getScene().getX() + addressLabel.getScene().getWindow().getX() +
+                                addressLabel.getLayoutX()
+                        , p.getY() + addressLabel.getScene().getY() + addressLabel.getScene().getWindow().getY() + addressLabel.getLayoutY());
+            }
+        });
+        addressLabel.setOnMouseExited(new EventHandler<javafx.scene.input.MouseEvent>() {
+            @Override
+            public void handle(javafx.scene.input.MouseEvent event) {
+                addressTooltip.hide();
+            }
+        });
     }
 
     public Patient getPatient() {
