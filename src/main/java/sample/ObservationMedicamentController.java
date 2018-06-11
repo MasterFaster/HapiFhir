@@ -53,7 +53,7 @@ public class ObservationMedicamentController implements Initializable {
 
         periodChoiceBox.getItems().addAll(FXCollections
                 .observableArrayList("All", "Last year", "Last month", "Last week"));
-
+        periodChoiceBox.getSelectionModel().selectFirst();
         periodChoiceBox.getSelectionModel().selectedIndexProperty().addListener(new ChangeListener<Number>() {
             @Override
             public void changed(ObservableValue<? extends Number> observable, Number oldValue, Number newValue) {
@@ -96,7 +96,7 @@ public class ObservationMedicamentController implements Initializable {
                 }
             }
         });
-
+        showTimeline(0);
     }
 
     public void setClient(IGenericClient client) {
@@ -251,8 +251,6 @@ public class ObservationMedicamentController implements Initializable {
                 return o2.getIssued().compareTo(o1.getIssued());
             }
         });
-
         return observations;
     }
-
 }

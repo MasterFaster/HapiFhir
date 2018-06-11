@@ -12,7 +12,7 @@
           <CategoryAxis side="BOTTOM" />
         </xAxis>
         <yAxis>
-          <NumberAxis side="LEFT" />
+          <NumberAxis forceZeroInRange="false" side="LEFT" />
         </yAxis>
       </LineChart>
    </children>

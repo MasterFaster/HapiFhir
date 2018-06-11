@@ -17,10 +17,8 @@ import org.hl7.fhir.exceptions.FHIRException;
 
 import java.math.BigDecimal;
 import java.net.URL;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-import java.util.ResourceBundle;
+import java.text.SimpleDateFormat;
+import java.util.*;
 
 public class ObservationsChartController implements Initializable {
 
@@ -49,12 +47,8 @@ public class ObservationsChartController implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         ArrayList<Observation> observations = new ArrayList<>();
-        XYChart.Series series = new XYChart.Series<Number, Number>();
-        Number index = 0;
         final NumberAxis xAxis = new NumberAxis();
         final NumberAxis yAxis = new NumberAxis();
-
-
         Bundle bundle = client.search().forResource(Observation.class)
                 .where(new ReferenceClientParam("patient").hasId(patientID))
                 .where(new TokenClientParam("code").exactly().code(observationCode)).returnBundle(Bundle.class)
@@ -64,15 +58,7 @@ public class ObservationsChartController implements Initializable {
             for (Bundle.BundleEntryComponent entry : entries) {
                 if (entry.getResource() instanceof Observation) {
                     Observation observation = (Observation) entry.getResource();
-                    try{
-                        System.out.println(observation.getValueQuantity().getValue());
-                        observations.add(observation);
-                        series.getData().add(new XYChart.Data(observation.getIssued().toString(),
-                                observation.getValueQuantity().getValue()));
-                        index = index.intValue() + 1;
-                    } catch (FHIRException ex){
-                        ex.printStackTrace();
-                    }
+                    observations.add(observation);
                 }
             }
             if (bundle.getLink(Bundle.LINK_NEXT) != null) {
@@ -81,7 +67,43 @@ public class ObservationsChartController implements Initializable {
                 break;
             }
         }
+        Collections.sort(observations, Comparator.comparing(Observation::getIssued));
+        SimpleDateFormat dateFormatTime = new SimpleDateFormat("dd-MM-yyyy HH:MM:SS");
+        System.out.println(observationCode);
+        if (!observationCode.contains("55284-4")){
+            XYChart.Series series = new XYChart.Series<Number, Number>();
+
+            for (Observation o :
+                    observations) {
+                try{
+                    series.getData().add(new XYChart.Data(dateFormatTime.format(o.getIssued()),
+                            o.getValueQuantity().getValue()));
+                } catch (FHIRException ex){
+                    ex.printStackTrace();
+                }
+            }
+            series.setName(observations.get(0).getCode().getText());
+            observationsChart.getData().add(series);
+        } else {
+            XYChart.Series series = new XYChart.Series<Number, Number>();
+            XYChart.Series series2 = new XYChart.Series<Number, Number>();
+
+            for (Observation o :
+                    observations) {
+                try{
+                    series.getData().add(new XYChart.Data(dateFormatTime.format(o.getIssued()),
+                            o.getComponent().get(0).getValueQuantity().getValue()));
+                    series2.getData().add(new XYChart.Data(dateFormatTime.format(o.getIssued()),
+                            o.getComponent().get(1).getValueQuantity().getValue()));
+                } catch (FHIRException ex){
+                    ex.printStackTrace();
+                }
+            }
+            series.setName(observations.get(0).getComponent().get(0).getCode().getText());
+            series2.setName(observations.get(0).getComponent().get(1).getCode().getText());
+            observationsChart.getData().add(series);
+            observationsChart.getData().add(series2);
+        }
         observationsChart.setTitle(observations.get(0).getCode().getText());
-        observationsChart.getData().add(series);
     }
 }
