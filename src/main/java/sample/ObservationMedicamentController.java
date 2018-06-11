@@ -23,6 +23,7 @@ import org.hl7.fhir.dstu3.model.Patient;
 import org.hl7.fhir.exceptions.FHIRException;
 
 import java.net.URL;
+import java.text.SimpleDateFormat;
 import java.util.*;
 
 public class ObservationMedicamentController implements Initializable {
@@ -87,19 +88,22 @@ public class ObservationMedicamentController implements Initializable {
                 return o2.getAuthoredOn().compareTo(o1.getAuthoredOn());
             }
         });
-
+        SimpleDateFormat dateFormatNoTime = new SimpleDateFormat("dd-MM-yyyy");
+        SimpleDateFormat dateFormatTime = new SimpleDateFormat("dd-MM-yyyy HH:MM:SS");
         int medicationsIndex = 0;
         int observationsIndex = 0;
         while (patientsIntroductions.size()<observations.size()+medicationRequests.size()){
             if (medicationsIndex == medicationRequests.size()){
-                patientsIntroductions.add(observations.get(observationsIndex).getCode().getText() +
-                observations.get(observationsIndex).getIssued().toString());
+                patientsIntroductions.add("Observation " +
+                        dateFormatTime.format(observations.get(observationsIndex).getIssued())+ ":\t" +
+                        observations.get(observationsIndex).getCode().getText());
                 viewToListsMapper.put(eventsListView.getItems().size(), new Pair<>(observations, observationsIndex));
                 observationsIndex++;
             } else if (observationsIndex == observations.size()){
                 try{
-                    patientsIntroductions.add(medicationRequests.get(medicationsIndex).getMedicationCodeableConcept()
-                            .getText() + medicationRequests.get(medicationsIndex).getAuthoredOn().toString());
+                    patientsIntroductions.add("Medication Request " +
+                            dateFormatNoTime.format(medicationRequests.get(medicationsIndex).getAuthoredOn()) + ":\t" +
+                            medicationRequests.get(medicationsIndex).getMedicationCodeableConcept().getText());
                     viewToListsMapper.put(eventsListView.getItems().size(),
                             new Pair<>(medicationRequests, medicationsIndex));
                     medicationsIndex++;
@@ -109,8 +113,9 @@ public class ObservationMedicamentController implements Initializable {
             } else if(medicationRequests.get(medicationsIndex).getAuthoredOn()
                     .after(observations.get(observationsIndex).getIssued())){
                 try{
-                    patientsIntroductions.add(medicationRequests.get(medicationsIndex).getMedicationCodeableConcept()
-                            .getText() + medicationRequests.get(medicationsIndex).getAuthoredOn().toString());
+                    patientsIntroductions.add("Medication Request " +
+                            dateFormatNoTime.format(medicationRequests.get(medicationsIndex).getAuthoredOn()) + ":\t" +
+                            medicationRequests.get(medicationsIndex).getMedicationCodeableConcept().getText());
                     viewToListsMapper.put(eventsListView.getItems().size(),
                             new Pair<>(medicationRequests, medicationsIndex));
                     medicationsIndex++;
@@ -118,8 +123,9 @@ public class ObservationMedicamentController implements Initializable {
                     ex.printStackTrace();
                 }
             } else {
-                patientsIntroductions.add(observations.get(observationsIndex).getCode().getText() +
-                        observations.get(observationsIndex).getIssued().toString());
+                patientsIntroductions.add("Observation " +
+                        dateFormatTime.format(observations.get(observationsIndex).getIssued()) + ":\t" +
+                        observations.get(observationsIndex).getCode().getText());
                 viewToListsMapper.put(eventsListView.getItems().size(), new Pair<>(observations, observationsIndex));
                 observationsIndex++;
             }
