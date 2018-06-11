@@ -79,23 +79,39 @@ public class ObservationMedicamentController implements Initializable {
                     if (key == observations){
                         String code = observations.get(index).getCode().getCodingFirstRep().getCode();
                         System.out.println("Observation code: " + code);
-                        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getClassLoader().getResource("observationsChart.fxml"));
-                        ObservationsChartController observationsChartController = new ObservationsChartController();
-                        observationsChartController.setPatient(patientID);
-                        observationsChartController.setClient(client);
-                        observationsChartController.setObservationCode(code);
-                        fxmlLoader.setController(observationsChartController);
-                        try{
-                            Parent root = (Parent)fxmlLoader.load();
-                            Stage stage = new Stage();
-                            stage.setTitle("Observations chart");
-                            stage.initModality(Modality.APPLICATION_MODAL);
-                            stage.initStyle(StageStyle.DECORATED);
-                            stage.setResizable(false);
-                            stage.setScene(new Scene(root, 450, 450));
-                            stage.showAndWait();
-                        }catch(Exception ex){
-                            ex.printStackTrace();
+                        if (!code.equals("69453-9")) {
+                            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getClassLoader().getResource("observationsChart.fxml"));
+                            ObservationsChartController observationsChartController = new ObservationsChartController();
+                            observationsChartController.setPatient(patientID);
+                            observationsChartController.setClient(client);
+                            observationsChartController.setObservationCode(code);
+                            fxmlLoader.setController(observationsChartController);
+                            try{
+                                Parent root = (Parent)fxmlLoader.load();
+                                Stage stage = new Stage();
+                                stage.setTitle("Observations chart");
+                                stage.initModality(Modality.APPLICATION_MODAL);
+                                stage.initStyle(StageStyle.DECORATED);
+                                stage.setResizable(false);
+                                stage.setScene(new Scene(root, 450, 450));
+                                stage.showAndWait();
+                            }catch(Exception ex){
+                                ex.printStackTrace();
+                            }
+                        } else{
+                            String s="";
+                            try{
+                                s = ((Observation)observations.get(index)).getCode().getText() +"\n" +
+                                        ((Observation)observations.get(index)).getValueCodeableConcept().getText() + "\n" +
+                                        ((Observation)observations.get(index)).getIssued().toString();
+                            } catch (FHIRException ex){
+                                ex.printStackTrace();
+                            }
+                            medicationTooltip = new Tooltip(s);
+
+                            double x = event.getSceneX() +  eventsListView.getScene().getWindow().getX()+30;
+                            double y = event.getSceneY() + eventsListView.getScene().getWindow().getY()+10;
+                            medicationTooltip.show(eventsListView, x,y);
                         }
                     } else {
                         String s="";
@@ -111,6 +127,7 @@ public class ObservationMedicamentController implements Initializable {
                         double y = event.getSceneY() + eventsListView.getScene().getWindow().getY()+10;
                         medicationTooltip.show(eventsListView, x,y);
                     }
+
                 }
             }
         });
