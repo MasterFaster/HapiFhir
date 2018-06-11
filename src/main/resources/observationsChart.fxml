@@ -3,10 +3,12 @@
 <?import javafx.scene.chart.CategoryAxis?>
 <?import javafx.scene.chart.LineChart?>
 <?import javafx.scene.chart.NumberAxis?>
+<?import javafx.scene.control.ChoiceBox?>
 <?import javafx.scene.layout.VBox?>
 
 <VBox prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1">
    <children>
+      <ChoiceBox fx:id="periodChoiceBox" prefWidth="150.0" />
       <LineChart fx:id="observationsChart">
         <xAxis>
           <CategoryAxis side="BOTTOM" />
