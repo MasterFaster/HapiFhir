@@ -2,13 +2,21 @@ package sample;
 
 import ca.uhn.fhir.rest.client.api.IGenericClient;
 import ca.uhn.fhir.rest.gclient.ReferenceClientParam;
+import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.geometry.Point2D;
 import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.Tooltip;
+import javafx.stage.Modality;
+import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 import org.hl7.fhir.dstu3.model.*;
 import org.hl7.fhir.exceptions.FHIRException;
 
@@ -29,6 +37,7 @@ public class PatientDetailsController implements Initializable{
     @FXML private Label nameLabel;
     @FXML private Label genderLabel;
     @FXML private Label addressLabel;
+    @FXML private Button timelineButton;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -78,6 +87,29 @@ public class PatientDetailsController implements Initializable{
             @Override
             public void handle(javafx.scene.input.MouseEvent event) {
                 addressTooltip.hide();
+            }
+        });
+
+        timelineButton.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                FXMLLoader fxmlLoader = new FXMLLoader(getClass().getClassLoader().getResource("observationMedicament.fxml"));
+                ObservationMedicamentController observationMedicamentController = new ObservationMedicamentController();
+                observationMedicamentController.setPatient(patient);
+                observationMedicamentController.setClient(client);
+                fxmlLoader.setController(observationMedicamentController);
+                try{
+                    Parent root = (Parent)fxmlLoader.load();
+                    Stage stage = new Stage();
+                    stage.setTitle("Timeline");
+                    stage.initModality(Modality.APPLICATION_MODAL);
+                    stage.initStyle(StageStyle.DECORATED);
+                    stage.setResizable(false);
+                    stage.setScene(new Scene(root, 450, 450));
+                    stage.showAndWait();
+                }catch(Exception ex){
+                    ex.printStackTrace();
+                }
             }
         });
     }
