@@ -14,7 +14,6 @@ import org.hl7.fhir.exceptions.FHIRException;
 
 import java.awt.event.MouseEvent;
 import java.net.URL;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
@@ -32,6 +31,7 @@ public class PatientDetailsController implements Initializable{
     @FXML private Label addressLabel;
     @FXML private Label birthDateLabel;
     @FXML private Label martialStatusLabel;
+    @FXML private Button timelineButton;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -39,9 +39,6 @@ public class PatientDetailsController implements Initializable{
         genderLabel.setText(patient.getGender().getDefinition());
         setFamilyNameLabel();
         setAddressLabel();
-        SimpleDateFormat dt1 = new SimpleDateFormat("dd-MM-yyyy");
-        birthDateLabel.setText(dt1.format(patient.getBirthDate()));
-        martialStatusLabel.setText(patient.getMaritalStatus().getText());
     }
 
     private void setFamilyNameLabel(){
@@ -115,6 +112,29 @@ public class PatientDetailsController implements Initializable{
             @Override
             public void handle(javafx.scene.input.MouseEvent event) {
                 addressTooltip.hide();
+            }
+        });
+
+        timelineButton.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                FXMLLoader fxmlLoader = new FXMLLoader(getClass().getClassLoader().getResource("observationMedicament.fxml"));
+                ObservationMedicamentController observationMedicamentController = new ObservationMedicamentController();
+                observationMedicamentController.setPatient(patient);
+                observationMedicamentController.setClient(client);
+                fxmlLoader.setController(observationMedicamentController);
+                try{
+                    Parent root = (Parent)fxmlLoader.load();
+                    Stage stage = new Stage();
+                    stage.setTitle("Timeline");
+                    stage.initModality(Modality.APPLICATION_MODAL);
+                    stage.initStyle(StageStyle.DECORATED);
+                    stage.setResizable(false);
+                    stage.setScene(new Scene(root, 450, 450));
+                    stage.showAndWait();
+                }catch(Exception ex){
+                    ex.printStackTrace();
+                }
             }
         });
     }
