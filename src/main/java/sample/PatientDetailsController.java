@@ -41,11 +41,21 @@ public class PatientDetailsController implements Initializable{
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+
+        genderLabel.setText(patient.getGender().getDefinition());
+        setFamilyNameLabel();
+        setAddressLabel();
+    }
+
+    private void setFamilyNameLabel(){
         String patientFamilyNames = "";
+        String patientFamilyName = "";
         String patientNames = "";
         for(HumanName humanName : patient.getName()){
+            if(humanName.getUse() == HumanName.NameUse.OFFICIAL)
+                patientFamilyName = humanName.getFamily();
             if(!patientFamilyNames.contains(humanName.getFamily())) {
-                patientFamilyNames += humanName.getFamily() + "(" + humanName.getUse() + ")" + ", ";
+                patientFamilyNames += humanName.getFamily() + "(" + humanName.getUse() + ")" + "\n";
             }
             for(StringType stringType : humanName.getGiven()){
                 if(!patientNames.contains(stringType.getValueNotNull())) {
@@ -53,14 +63,34 @@ public class PatientDetailsController implements Initializable{
                 }
             }
         }
-        patientFamilyNames = patientFamilyNames.substring(0, patientFamilyNames.length()-2);
-        familyNameLabel.setText(patientFamilyNames);
+        patientFamilyNames = patientFamilyNames.substring(0, patientFamilyNames.length()-1);
+        if(!patientFamilyName.equals(""))
+            familyNameLabel.setText(patientFamilyName);
+        else
+            familyNameLabel.setText(patientFamilyNames);
+        Tooltip familyNameTooltip = new Tooltip(patientFamilyNames);
+        familyNameLabel.setOnMouseEntered(new EventHandler<javafx.scene.input.MouseEvent>() {
+            @Override
+            public void handle(javafx.scene.input.MouseEvent event) {
+                double x = event.getSceneX() + familyNameLabel.getScene().getWindow().getX()+30;
+                double y = event.getSceneY() + familyNameLabel.getScene().getWindow().getY() + 10;
+                familyNameTooltip.show(familyNameLabel, x, y);
+            }
+        });
+
+        familyNameLabel.setOnMouseExited(new EventHandler<javafx.scene.input.MouseEvent>() {
+            @Override
+            public void handle(javafx.scene.input.MouseEvent event) {
+                familyNameTooltip.hide();
+            }
+        });
         patientNames = patientNames.substring(0, patientNames.length()-2);
         nameLabel.setText(patientNames);
-        genderLabel.setText(patient.getGender().getDefinition());
+    }
+
+    private void setAddressLabel(){
         Tooltip addressTooltip = new Tooltip("");
-//        addressTooltip.setX(addressLabel.getLayoutY());
-//        addressTooltip.setY(addressLabel.getLayoutX());
+        StringBuilder addressesForLabel = new StringBuilder();
         StringBuilder addresses = new StringBuilder();
         for(Address address : patient.getAddress()){
             StringBuilder addressAsString = new StringBuilder();
@@ -71,18 +101,19 @@ public class PatientDetailsController implements Initializable{
             addressAsString.append(address.getCity() + ", ");
             addressAsString.append(address.getCountry());
             addresses.append(addressAsString + "\n");
+            addressesForLabel.append(address.getCountry() + ", ");
         }
+        addressLabel.setText(addressesForLabel.substring(0, addressesForLabel.length()-2));
         addressTooltip.setText(addresses.toString());
-//        addressLabel.setTooltip(addressTooltip);
-        Point2D p = addressLabel.localToScene(0.0,0.0);
         addressLabel.setOnMouseEntered(new EventHandler<javafx.scene.input.MouseEvent>() {
             @Override
             public void handle(javafx.scene.input.MouseEvent event) {
-                addressTooltip.show(addressLabel, p.getX() + addressLabel.getScene().getX() + addressLabel.getScene().getWindow().getX() +
-                                addressLabel.getLayoutX()
-                        , p.getY() + addressLabel.getScene().getY() + addressLabel.getScene().getWindow().getY() + addressLabel.getLayoutY());
+                double x = event.getSceneX() + addressLabel.getScene().getWindow().getX()+30;
+                double y = event.getSceneY() + addressLabel.getScene().getWindow().getY() + 10;
+                addressTooltip.show(addressLabel, x, y);
             }
         });
+
         addressLabel.setOnMouseExited(new EventHandler<javafx.scene.input.MouseEvent>() {
             @Override
             public void handle(javafx.scene.input.MouseEvent event) {
@@ -128,61 +159,6 @@ public class PatientDetailsController implements Initializable{
 
     public void setClient(IGenericClient client) {
         this.client = client;
-    }
-
-    public List<MedicationRequest> getMedicationRequests(String patientID){
-        Bundle bundle = getClient().search().forResource(MedicationRequest.class)
-                .where(new ReferenceClientParam("subject").hasId(patientID)).returnBundle(Bundle.class)
-                .execute();
-        ArrayList<MedicationRequest> medicationRequests = new ArrayList<>();
-        while(true) {
-            List<Bundle.BundleEntryComponent> entries = bundle.getEntry();
-            for (Bundle.BundleEntryComponent entry : entries) {
-                if (entry.getResource() instanceof MedicationRequest) {
-                    MedicationRequest medicationRequest = (MedicationRequest) entry.getResource();
-
-
-                    //Println
-                    try {
-                        System.out.println(medicationRequest.getMedicationCodeableConcept().getText());
-                    } catch (FHIRException e){
-                        e.printStackTrace();
-                    }
-
-
-                    medicationRequests.add(medicationRequest);
-                }
-            }
-            if (bundle.getLink(Bundle.LINK_NEXT) != null) {
-                bundle = getClient().loadPage().next(bundle).execute();
-            } else {
-                break;
-            }
-        }
-        return medicationRequests;
-    }
-
-    public List<Observation> getObservations(String patientID){
-        ArrayList<Observation> observations = new ArrayList<>();
-        Bundle bundle = getClient().search().forResource(Observation.class)
-                .where(new ReferenceClientParam("patient").hasId(patientID)).returnBundle(Bundle.class)
-                .execute();
-        while(true) {
-            List<Bundle.BundleEntryComponent> entries = bundle.getEntry();
-            for (Bundle.BundleEntryComponent entry : entries) {
-                if (entry.getResource() instanceof Observation) {
-                    Observation observation = (Observation) entry.getResource();
-                    System.out.println(observation.getCode().getText());
-                    observations.add(observation);
-                }
-            }
-            if (bundle.getLink(Bundle.LINK_NEXT) != null) {
-                bundle = getClient().loadPage().next(bundle).execute();
-            } else {
-                break;
-            }
-        }
-        return observations;
     }
 
 
