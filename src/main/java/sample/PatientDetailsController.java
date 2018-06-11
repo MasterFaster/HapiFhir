@@ -14,6 +14,7 @@ import org.hl7.fhir.exceptions.FHIRException;
 
 import java.awt.event.MouseEvent;
 import java.net.URL;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
@@ -29,6 +30,8 @@ public class PatientDetailsController implements Initializable{
     @FXML private Label nameLabel;
     @FXML private Label genderLabel;
     @FXML private Label addressLabel;
+    @FXML private Label birthDateLabel;
+    @FXML private Label martialStatusLabel;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -36,6 +39,9 @@ public class PatientDetailsController implements Initializable{
         genderLabel.setText(patient.getGender().getDefinition());
         setFamilyNameLabel();
         setAddressLabel();
+        SimpleDateFormat dt1 = new SimpleDateFormat("dd-MM-yyyy");
+        birthDateLabel.setText(dt1.format(patient.getBirthDate()));
+        martialStatusLabel.setText(patient.getMaritalStatus().getText());
     }
 
     private void setFamilyNameLabel(){
